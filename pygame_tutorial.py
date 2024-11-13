@@ -2,6 +2,7 @@
 
 # Import and initialize pygame
 import pygame
+from random import randint
 pygame.init()
 
 # Get the clock
@@ -22,8 +23,27 @@ class GameObject(pygame.sprite.Sprite):
   def render(self, screen):
     screen.blit(self.surf, (self.x, self.y))
 
+class Apple(GameObject):
+ def __init__(self):
+   super(Apple, self).__init__(0, 0, 'apple.png')
+   self.dx = 0
+   self.dy = (randint(0, 200) / 100) + 1
+   self.reset() # call reset here! 
+
+ def move(self):
+   self.x += self.dx
+   self.y += self.dy
+   # Check the y position of the apple
+   if self.y > 500: 
+     self.reset()
+
+ # add a new method
+ def reset(self):
+   self.x = randint(50, 400)
+   self.y = -64
+
 # Make an instance of GameObject
-apple = GameObject(0, 250, 'apple.png')
+apple = Apple()
 
 # Creat the game loop
 running = True
@@ -36,7 +56,10 @@ while running:
   # Clear screen
   screen.fill((255, 255, 255))
   
-  apple.x += 1
+  apple.x += 1.5 # any number here! 
+  
+  # Draw apple
+  apple.move()
   apple.render(screen)
   
   # Update the window
