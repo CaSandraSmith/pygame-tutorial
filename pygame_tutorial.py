@@ -15,10 +15,32 @@ while running:
 	
 	# Clear the screen
 	screen.fill((255, 255, 255))
+ 
 	# Draw a circle
-	color = (245, 204, 59)
+	color = (255, 0, 0)
+	position = (125, 125)
+	
+	pygame.draw.circle(screen, color, position, 50)
+	
+	color = (250, 141, 7)
+	position = (375, 125)
+	
+	pygame.draw.circle(screen, color, position, 50)
+
+	color = (255, 255, 0)
 	position = (250, 250)
 	
-	pygame.draw.circle(screen, color, position, 75)
+	pygame.draw.circle(screen, color, position, 50)
+ 
+	color = (0, 255, 0)
+	position = (125, 375)
+	
+	pygame.draw.circle(screen, color, position, 50)
+
+	color = (0, 0, 255)
+	position = (375, 375)
+	
+	pygame.draw.circle(screen, color, position, 50)
+ 
 	# Update the display
 	pygame.display.flip()
