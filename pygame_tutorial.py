@@ -15,15 +15,17 @@ screen = pygame.display.set_mode([500, 500])
 
 # Game Object
 class GameObject(pygame.sprite.Sprite):
-  # Remove width and height and add image here!
-  def __init__(self, x, y, image):
-    super(GameObject, self).__init__()
-    self.surf = pygame.image.load(image) # ADD!
-    self.x = x
-    self.y = y
+	def __init__(self, x, y, image):
+		super(GameObject, self).__init__()
+		self.surf = pygame.image.load(image)
+		self.x = x
+		self.y = y
+		self.rect = self.surf.get_rect() # add 
 
-  def render(self, screen):
-    screen.blit(self.surf, (self.x, self.y))
+	def render(self, screen):
+		self.rect.x = self.x # add
+		self.rect.y = self.y # add
+		screen.blit(self.surf, (self.x, self.y))
 
 class Apple(GameObject):
  def __init__(self):
@@ -121,6 +123,11 @@ all_sprites.add(player)
 all_sprites.add(apple)
 all_sprites.add(strawberry)
 
+# make a fruits Group
+fruit_sprites = pygame.sprite.Group()
+fruit_sprites.add(apple)
+fruit_sprites.add(strawberry)
+
 # Creat the game loop
 running = True
 while running:
@@ -146,6 +153,11 @@ while running:
   for entity in all_sprites:
     entity.move()
     entity.render(screen)
+    
+  # Check Colisions
+  fruit = pygame.sprite.spritecollideany(player, fruit_sprites)
+  if fruit:
+    fruit.reset()
     
   # Update the window
   pygame.display.flip()
